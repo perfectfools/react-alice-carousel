@@ -18,13 +18,15 @@ export const setTotalItemsInSlide = (responsiveConfig, childrenLength) => {
 
 export const calculateInitialProps = (props, rootComponent) => {
   const { startIndex, responsive, infinite } = props
+  const isMobile = (props.isMobile) ? props.isMobile : false
+
   const style = Utils.getDefaultStyles()
   const slides = Utils.getSlides(props)
   const stagePadding = Utils.getStagePadding(props)
   const items = setTotalItemsInSlide(responsive, slides.length)
   const currentIndex = Utils.setStartIndex(slides.length, startIndex)
   const galleryWidth = Utils.getElementWidth(rootComponent)
-  const itemWidth = Utils.getItemWidth(galleryWidth, items)
+  const itemWidth = Utils.getItemWidth(galleryWidth, items, isMobile)
   const clones = Utils.cloneCarouselItems(slides, items, { stagePadding, infinite })
   const translate3d = Utils.getTranslate3dPosition(currentIndex, { itemWidth, items, stagePadding, infinite })
 
@@ -37,6 +39,7 @@ export const calculateInitialProps = (props, rootComponent) => {
     infinite,
     translate3d,
     stagePadding,
+    isMobile,
     style,
   }
 }

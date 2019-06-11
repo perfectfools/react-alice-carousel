@@ -62,10 +62,13 @@ export const isStagePadding = (props = {}) => {
   return paddingLeft || paddingRight
 }
 
-export const getItemWidth = (galleryWidth = 0, totalItems) => {
+export const getItemWidth = (galleryWidth = 0, totalItems, isMobile) => {
   const width = Number(galleryWidth)
   const items = Number(totalItems)
-  return width && items > 0 ? width / items : 0
+  if(!isMobile){
+    return width && items > 0 ? (width / items) : 0
+  }
+  return width && items > 0 ? width / ( items / 1.5 ) : 0
 }
 
 export const getNextItem = (stageComponent, itemIndex) => {
